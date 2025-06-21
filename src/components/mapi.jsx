@@ -6,17 +6,22 @@ const MyMovieApis = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+        const apiKey = import.meta.env.VITE_TMDB_KEY;
+    const baseURL = import.meta.env.VITE_BASE_URL;
+
     const gettingData = async () => {
       try {
-        const mydata = await axios.get(
-          "https://api.themoviedb.org/3/movie/popular?api_key=df498dfd349cbb0a91d054609f9df7d3&language=en-US&page=50"
+        const response = await axios.get(
+          `${baseURL}/movie/popular?api_key=${apiKey}&language=en-US&page=50`
         );
-        setMymovie(mydata.data.results);
+        setMymovie(response.data.results);
       } catch (error) {
         console.error("An error occurred:", error);
         setError(error);
       }
-    };
+};
+
+
     gettingData();
   }, []);
 
